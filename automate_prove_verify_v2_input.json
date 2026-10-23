@@ -1,0 +1,10 @@
+[
+    {
+        "id": "3dc4aab5-f709-4802-b771-7a0061f73861",
+        "num_keys": [1, 2, 4, 8, 16, 32, 64, 128, 256],
+        "prover_verifier": [
+            {"prover": "merkle", "verifier": "merkle"},
+            {"prover": "zkstarkmerkle", "verifier": "zkstarkmerkle"}
+        ]
+    }
+]

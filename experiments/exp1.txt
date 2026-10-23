@@ -1,0 +1,124 @@
+RUNS (WIDTH, TREE_TYPE, PROVER_TYPE, VERIFIER_TYPE, SETUP_TYPE, HASH_FN, NUM_KEYS_TO_PROVE, NUM_KEYS_TREE, TREE_ID)
+-----------------------------------------------------------------------------------------------
+2,merkle,merkle,merkle,none,keccak,1,1024,
+2,merkle,merkle,merkle,none,keccak,2,1024,
+2,merkle,merkle,merkle,none,keccak,4,1024,
+2,merkle,merkle,merkle,none,keccak,8,1024,
+2,merkle,merkle,merkle,none,keccak,16,1024,
+2,merkle,merkle,merkle,none,keccak,32,1024,
+2,merkle,merkle,merkle,none,keccak,64,1024,
+2,merkle,merkle,merkle,none,keccak,128,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,1,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,2,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,4,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,8,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,16,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,32,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,64,1024,
+2,merkle,merkle_optimized,merkle_optimized,none,keccak,128,1024,
+4,merkle,merkle,merkle,none,keccak,1,1024,
+4,merkle,merkle,merkle,none,keccak,2,1024,
+4,merkle,merkle,merkle,none,keccak,4,1024,
+4,merkle,merkle,merkle,none,keccak,8,1024,
+4,merkle,merkle,merkle,none,keccak,16,1024,
+4,merkle,merkle,merkle,none,keccak,32,1024,
+4,merkle,merkle,merkle,none,keccak,64,1024,
+4,merkle,merkle,merkle,none,keccak,128,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,1,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,2,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,4,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,8,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,16,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,32,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,64,1024,
+4,merkle,merkle_optimized,merkle_optimized,none,keccak,128,1024,
+8,merkle,merkle,merkle,none,keccak,1,1024,
+8,merkle,merkle,merkle,none,keccak,2,1024,
+8,merkle,merkle,merkle,none,keccak,4,1024,
+8,merkle,merkle,merkle,none,keccak,8,1024,
+8,merkle,merkle,merkle,none,keccak,16,1024,
+8,merkle,merkle,merkle,none,keccak,32,1024,
+8,merkle,merkle,merkle,none,keccak,64,1024,
+8,merkle,merkle,merkle,none,keccak,128,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,1,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,2,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,4,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,8,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,16,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,32,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,64,1024,
+8,merkle,merkle_optimized,merkle_optimized,none,keccak,128,1024,
+16,merkle,merkle,merkle,none,keccak,1,1024,
+16,merkle,merkle,merkle,none,keccak,2,1024,
+16,merkle,merkle,merkle,none,keccak,4,1024,
+16,merkle,merkle,merkle,none,keccak,8,1024,
+16,merkle,merkle,merkle,none,keccak,16,1024,
+16,merkle,merkle,merkle,none,keccak,32,1024,
+16,merkle,merkle,merkle,none,keccak,64,1024,
+16,merkle,merkle,merkle,none,keccak,128,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,1,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,2,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,4,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,8,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,16,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,32,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,64,1024,
+16,merkle,merkle_optimized,merkle_optimized,none,keccak,128,1024,
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,1,1024, 80272537-2f99-401c-b5fc-35aec37d681d
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,2,1024, 80272537-2f99-401c-b5fc-35aec37d681d
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,4,1024, 80272537-2f99-401c-b5fc-35aec37d681d
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,8,1024, 80272537-2f99-401c-b5fc-35aec37d681d
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,16,1024, 80272537-2f99-401c-b5fc-35aec37d681d
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,32,1024, 
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,64,1024, 
+4,merkle,zksnarkmerkle,zksnarkmerkle,none,poseidon,128,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,1,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,2,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,4,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,8,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,16,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,32,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,64,1024,
+16,verkle,verkle,verkle,verkle_kzg,none,128,1024,
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,1,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,2,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,4,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,8,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,16,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,32,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,64,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+16,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,128,1024, 094e7e9b-14d3-4f03-9e9c-5e119da5835b
+64,verkle,verkle,verkle,verkle_kzg,none,1,1024,
+64,verkle,verkle,verkle,verkle_kzg,none,2,1024,
+64,verkle,verkle,verkle,verkle_kzg,none,4,1024,
+64,verkle,verkle,verkle,verkle_kzg,none,8,1024,
+64,verkle,verkle,verkle,verkle_kzg,none,16,1024,
+64,verkle,verkle,verkle,verkle_kzg,none,32,1024,
+64,verkle,verkle,verkle,verkle_kzg,none,64,1024,
+64,verkle,verkle,verkle,verkle_kzg,none,128,1024,
+64,verkle,verkle_optimized,verkle_optimized,verkle_kzg,none,1,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,1,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,2,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,4,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,8,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,16,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,32,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,64,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+64,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,128,1024, 4c58626e-fe4c-488b-9e8b-73a3179b6162
+256,verkle,verkle,verkle,verkle_kzg,none,1,1024,
+256,verkle,verkle,verkle,verkle_kzg,none,2,1024,
+256,verkle,verkle,verkle,verkle_kzg,none,4,1024,
+256,verkle,verkle,verkle,verkle_kzg,none,8,1024,
+256,verkle,verkle,verkle,verkle_kzg,none,16,1024,
+256,verkle,verkle,verkle,verkle_kzg,none,32,1024,
+256,verkle,verkle,verkle,verkle_kzg,none,64,1024,
+256,verkle,verkle,verkle,verkle_kzg,none,128,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,1,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,2,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,4,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,8,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,16,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,32,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,64,1024,
+256,verkle,verkle_multiproof,verkle_multiproof,verkle_kzg,none,128,1024,
+

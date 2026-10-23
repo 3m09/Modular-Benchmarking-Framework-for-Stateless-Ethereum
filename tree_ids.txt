@@ -1,0 +1,130 @@
+f878a524-d22e-46f5-a2f1-8d1e10e5f55c --> real data verkle trie width - 256
+7be66169-d028-4a08-96f4-49e9a6507d12 --> real data merkle trie keccak width - 16
+36a2d086-8919-485a-bdda-e2f6234030fc --> real data merkle trie poseidon width - 16
+6a56fce4-c5fe-4308-a0c1-49c423b40890 --> real data merkle trie keccak hash width - 32
+700c9e91-a36b-405f-9606-0934b1f561dc --> real data merkle trie poseidon hash width - 32
+a9785496-0e01-402a-8795-3e7de3494217 --> real data merkle trie poseidon hash width - 16 10^5 keys
+39436dcd-a339-4c47-a5ae-1653d4dbbc06 --> real data merkle trie poseidon hash width - 16 10^6 keys
+6f2a2ecc-fe58-4e0f-8a94-1c20ac92f798
+25f9beea-9d94-4549-8bb1-e0590022d6fb --> 50 keys verkle
+d01e0fc6-ef72-4c72-a346-c7434f46b5a0 --> merkle, w=16, k=128
+f84b8ad5-5551-4b7d-8be3-0232dbcc53db --> merkle, w=16, k=512
+62774d72-750f-4966-9ac6-0555204337ee --> merkle, w=16, k=1024
+78241067-e834-4352-b2ef-adad6f47e2ac --> merkle, w=16, k=2048
+8b56f5f4-10b6-41cc-ad88-24a5c1bbd70f --> merkle, w=8, k=1024
+d0b356ad-97b4-478e-b402-cfd67a5d39f5 --> merkle, w=4, k=1024
+5b5e2ae4-04b4-4902-8784-f87a2b7a6dc0 --> merkle, w=2, k=1024
+002d3e81-24ba-4717-ac5a-bb63f4092ff5 --> merkle, w=2, k=512
+94732776-30bb-491f-aa14-08716c8e30df --> merkle, w=4, k=512
+d3d3db73-806c-4251-8e1d-ad0857596cbf --> merkle, w=8, k=512
+c8931d92-7570-4dc4-a695-16638aadb162 --> merkle, w=16, k=512
+ddd5666c-6e82-4264-84d4-8485d307ddd2 --> merkle, w=32, k=512
+4428168a-bcea-48fc-b57a-ab8c9efd25e3 --> merkle, w=2, k=512
+27eeba82-d3b0-4de6-a2d5-294130e41fe5 --> merkle, w=4, k=512
+86827858-dcd2-459f-b8ca-1e06620f0602 --> merkle, w=8, k=512
+6ad80804-9c7c-485b-9569-24bf2f5dcb3e --> merkle, w=16, k=512
+5b1532b5-e370-4883-a43b-66bb4fe0ec97 --> merkle, w=32, k=512
+28b5f1b1-eac7-4ec5-8de3-917f7f8c5825 --> merkle, w=16, k=256, poseidon
+9f27bb7e-5177-4c5b-82b1-1b45c23c3616 --> merkle, w=16, k=512, poseidon
+a9df956a-da3a-462c-8635-a6225b87363e --> merkle, w=16, k=1024, poseidon
+a245522d-d6ed-474b-b49d-c96236798f0c --> merkle, w=16, k=2048, poseidon
+e2cc04de-e103-4d24-91ba-02890dbc707e --> merkle, w=4, k=2048, poseidon
+80272537-2f99-401c-b5fc-35aec37d681d --> merkle, w=4, k=1024, poseidon
+abbae042-4da4-401f-aa5c-f2d993e50d85 --> merkle, w=4, k=512, poseidon
+d54e8491-5f99-41d2-a944-90a7c90733fe --> merkle, w=4, k=256, poseidon
+64c62a6b-f748-422c-9930-323b87429b26 --> merkle, w=4, k=256 working
+7b9a0e6c-1fee-48cd-9099-c7c17f3dd326 --> merkle, w=16, k=256 working
+3d195059-edc5-46ac-82f9-15b85d71539f -->merkle, w=16, k=1024, poseidon working
+94498861-8515-4af7-81e9-3e9612a10349 -->merkle, w=4, k=1024, poseidon working
+0664c4a2-46e4-4bd5-a6eb-99191733d838 -->merkle, w=4, k=512, poseidon working
+d5cc9b63-260f-47f0-bc14-ee77ab5a9064 -->merkle, w=4, k=256, poseidon working
+cafa0fd8-7108-458c-875a-4e19c9f5cb5e -->merkle, w=16, k=1024, poseidon new
+cc286eb1-7fdb-4c72-8d8e-73f880701d2c --> verkle, w=256, k=1024 new
+2577d373-6d4c-4afe-aa6d-a0fdb032c03b -->merkle, w=4, k=1024, poseidon new
+614f731c-c080-4f5a-964a-2c176064edcd
+39f48b68-3109-4968-af83-351487d674e5
+59170c1d-00aa-4656-aa93-db9132164665 -->merkle, w=4, k=1024, poseidon circomlib
+a00f889e-df1c-43ef-9d95-4a5db8c18160 -->merkle, w=4, k=1024, poseidon circomlib correct
+69e0c162-d53b-410a-a573-3f62a9393e27
+9fe4d584-b57e-49b7-8984-33ae17c740b1
+4a6b33b1-1f3c-412e-8dce-20154bf40f72 --> verkle, w=16, k=512 new varying width real eth
+dc1a34b3-325f-4dba-a33d-114c807a574a --> verkle, w=16, k=512 new varying width synth
+ea6f4b9d-a6af-4758-b099-33381310274a --> merkle, w=16, k=1024, poseidon circomlib correct
+ca6e4193-ac2a-40fc-b7c6-87ed24660200 --> verkle, w=64, k=512 new varying width synth
+5ce03be9-4f44-43ea-ab79-e31a6ab1fc38 --> verkle, w=256, k=512 new varying width synth
+d6686ded-1d4a-449b-804c-2eee884740b4 --> verkle, w=32, k=512 new varying width synth
+7eac8f69-a1b3-4d4b-9b02-d3588592c8eb --> verkle, w=16, k=256 new varying width synth
+ad942891-500f-40d8-bb1a-fd4da53fb90c --> verkle, w=256, k=256 new varying width synth
+7dccb292-7b6d-4421-9958-03c2a52e2f79 --> verkle, w=16, k=1024 new varying width synth
+0dc9b800-1e2e-47a9-9705-468a56652a18 --> verkle, w=256, k=1024 new varying width synth
+4fc03aeb-ac88-45ab-9c1d-f61ff2ca8306 --> verkle, w=16, k=2048 new varying width synth
+fa49219c-8422-4865-a11b-761fe407ceb3 --> verkle, w=256, k=2048 new varying width synth
+6388200c-310f-4255-92b7-133db3c75fe1 --> merkle, w=4, k=2048
+5a3595d9-5928-4d5c-aa63-74da8ff1cbb4 --> merkle, w=4, k=256, poseidon circomlib correct
+b849c13a-01b5-47e0-944e-37eb162c2e3d --> merkle, w=4, k=512, poseidon circomlib correct
+408c1716-cef0-48ef-bbcd-972b536a4226 --> merkle, w=4, k=2048, poseidon circomlib correct
+
+9c611664-64ac-4456-a2c2-51eff6f3355  - snark 4, 512
+1b0d798a-e84c-4a18-9e45-0eddbdad3b0b - verkle 256, 1024
+ec464a77-86ed-464c-9346-dc1b1dbccc61 - verkle 256, 1024
+ae5271bd-ae6d-44b4-8ad3-536f654ef150 - merkle 2, 512
+5bd3262a-5570-464c-9b12-9bce5b305887 - merkle 4, 512
+3dc4aab5-f709-4802-b771-7a0061f73861 - merkle 8, 512
+2e42cbaa-c475-400d-a03e-010ef1fdbff6 - merkle 4, 256
+c8247971-a5ba-414f-86dc-f42fc3f44de8 - merkle 16, 256
+d569237a-21b1-458e-a463-3bce92fadbcc - snark 2, 512
+8fe9886d-6627-4d24-bd65-cc6e2ad38e15 - snark 4, 512
+1d7d5741-7ce1-4d84-9828-7efd1359b030 - snark 8, 512
+8bf5d3ff-4029-49fd-9a33-dc1328153351 - snark 16, 512
+c12194a6-9f2b-4192-a956-253fc6928b8b - snark 32, 512
+d951cac6-2815-4e93-9dc6-5d4e05fb7f65 - snark 2, 1024
+ea153962-2665-4dfb-91eb-3de170e917d4 - snark 4, 1024
+affddf77-9132-4a68-9827-841a5b8d767a - snark 8, 1024
+7a65d274-6945-459d-8fd1-1725342e6a50 - snark 16, 1024
+bfe10f78-60a0-4afa-aef5-c414571ac269 - snark 32, 1024
+273804fd-c42e-4cc0-a94e-e4776a0fe60e - verkle 16, 256
+0eb77812-9e68-4de3-b8c3-82db50022587 - verkle 64, 256
+ad44efbb-0853-48de-ab55-d36c066bc1c2 - verkle 256, 256
+961be1c5-004d-4ae0-a595-e7562b26c7d7 - verkle 16, 512
+8729b72a-4f0c-4203-9fbb-ca4b28050235 - verkle 64, 512
+1760e4ce-c797-481b-847f-b87cf6fe4f92 - verkle 256, 512
+338032a9-383c-477f-8795-026ebf0bcb6b - verkle 16, 1024
+70852395-1405-4132-94ac-e28dad8dd809 - verkle 64, 1024
+a90529fe-dcc7-445e-b955-391db2067ade - verkle 256, 1024
+77ab4b3d-b1a3-44f1-9158-fed5e8d7d14b - merkle 16, 512
+5fdb193e-3ab2-4125-8019-921ae89b2b8f - merkle 32, 512
+b48b34ce-22eb-4ca3-b1d1-89d7db223fa9 - merkle 2, 256
+38d0ce83-3753-42fb-a171-8488f79123e0 - merkle 4, 256
+0dfbe6e7-a809-4376-9963-665eb6a7608e - merkle 8, 256
+6634781b-f6ac-4bec-ad7e-5e58d93845b2 - merkle 16, 256
+8b22e108-8b36-4e8c-900b-785170b2ca08 - merkle 32, 256
+0b949a91-a1b2-47f9-bf82-5c3d179dc475 - merkle 2, 1024
+b8e9c927-7fc7-4195-a58f-9c5de8a75aef - merkle 2, 1024
+e7e6ae41-44fa-4b59-a2c4-7cf485fff76f - merkle 2, 1024
+c3acd83a-e958-47dd-8a83-0c4a89cba1df - merkle 4, 1024
+3fd1bf33-878a-409c-85e1-a7c4293c5728 - merkle 8, 1024
+c4174917-7f0a-43da-85eb-1f3d1e1b717d - merkle 16, 1024
+8335ec77-a91e-42e0-a8de-a834b6169f65 - merkle 32, 1024
+c54edda1-7c1c-4e05-b30c-78d17f78b1aa - merkle 2, 512
+997e0792-cde1-46a6-ad17-162a413faed4 - snark 4, 512
+7b5ade6c-058c-4624-9a3b-89a1e06762a6 - snark 8, 512
+ad9d5210-5219-4fb6-9b07-bce19631eb2d - snark 16, 512
+a13802cd-0efc-40f6-b04a-cb4981068fe3 - snark 32, 512
+e337103c-5623-46fe-9f14-baba19c22e27 - snark 2, 1024
+58471155-2144-444c-a5e5-c613918cde28 - snark 4, 1024
+35588272-5318-4ef2-96bc-94d42ffc9639 - snark 8, 1024
+87bd20a5-8d07-4e80-9586-5805d7f8ce8f - snark 16, 1024
+3de930af-576e-4f75-b429-56e979791399 - snark 32, 1024
+1453f12c-949c-496a-b12d-244960353279 - snark 2, 256
+56297185-3a76-436e-a579-64763e87173a - snark 4, 256
+c1ca8b27-cc49-4430-b092-2c3998b00bcb - snark 8, 256
+59009d23-02fb-4e40-924c-0e76f7f862a3 - snark 16, 256
+e4bc95a1-2226-4f18-b9a4-3368c864d23d - snark 32, 256
+6c217c98-7449-4dab-b1a7-4284bb5615c3 - merkle 2, 2048
+649a246d-5bd2-49b7-8d47-cb1a2917ce09 - merkle 4, 2048
+a72a0db9-3bfe-46d6-b1f3-3106e2f4cb94 - merkle 8, 2048
+3a22dfe8-30f6-44d5-9970-8e7e1612e62d - merkle 16, 2048
+0ffcf360-aa69-46ce-8e0a-2d96bca77142 - merkle 32, 2048
+fe2d9741-6116-4bfe-871b-0f25e0797539
+c05ee21d-8bf4-49dc-a018-a17122b26eb0
+b667a968-c47c-470b-9223-b8592b5a0393

@@ -1,0 +1,9 @@
+{
+    "TREE_TYPE": "merkle",
+    "HASH_FN": "keccak",
+    "SETUP_TYPE": "",
+    "KEY_LENGTH": 32,
+    "WIDTH": 4,
+    "SECRET": 1927409816240961209460912649124,
+    "NUM_KEYS": 2048
+}

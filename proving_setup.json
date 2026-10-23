@@ -1,0 +1,11 @@
+{
+    "TREE_TYPE": "merkle",
+    "HASH_FN": "keccak",
+    "TREE_ID": "3dc4aab5-f709-4802-b771-7a0061f73861",
+    "PROVER_TYPE": "zkstarkmerkle",
+    "VERIFIER_TYPE": "zkstarkmerkle",
+    "SETUP_TYPE": "",
+    "WIDTH": 8,
+    "SECRET": 1927409816240961209460912649124,
+    "NUM_KEYS_TO_PROVE": 256
+}

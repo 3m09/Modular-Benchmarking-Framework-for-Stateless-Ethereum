@@ -1,0 +1,8 @@
+{
+    "tree_type": "verkle",
+    "hash_fn": "",
+    "num_key_tree": [2048],
+    "width": [16,32,64,256],
+    "num_key_prove": [1,2,4,8,16,32,64,128,256],
+    "prover": ["verkle","verkle_multiproof"]
+}

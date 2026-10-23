@@ -1,0 +1,60 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# ---------- Secrets ----------
+.env
+*.env
+
+# ---------- Node ----------
+node_modules/
+
+# ---------- Generated tree state (LevelDB + root refs) ----------
+tree_storage/
+roots/
+merkle/*_state_db/
+verkle/*_state_db*/
+
+# ---------- zk-SNARK build artifacts (large / machine-specific) ----------
+*.ptau
+*.zkey
+*.r1cs
+*.sym
+*.wtns
+*.zkif
+circuit_directory/*_cpp/
+circuit_directory/*_js/
+snark_proofs/
+rapidsnark/
+circom/
+bellman-pk
+bellman-proof
+pysnark_ek
+pysnark_vk
+pysnark_log
+
+# ---------- Scratch / generated outputs ----------
+input.txt
+logs/
+*.log
+.~lock.*#
+
+# ---------- LaTeX build files ----------
+*.aux
+*.fls
+*.fdb_latexmk
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz
+*.blg
+*.bbl
+
+# ---------- OS / editors ----------
+.DS_Store
+.idea/
+.vscode/

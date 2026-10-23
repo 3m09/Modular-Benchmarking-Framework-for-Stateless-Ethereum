@@ -1,0 +1,17 @@
+ WIDTH TREE_TYPE       PROVER_TYPE     VERIFIER_TYPE SETUP_TYPE HASH_FN  NUM_KEYS_TO_PROVE  NUM_KEYS_TREE                              TREE_ID   proof_size  proving_time  verification_time
+     2    merkle            merkle            merkle             keccak                 16            512                                      19741.000000      0.003406           0.004060
+     2    merkle  merkle_optimized  merkle_optimized             keccak                 16            512                                       9345.000000      0.003092           0.003700
+     4    merkle            merkle            merkle             keccak                 16            512                                      19471.666667      0.003039           0.002676
+     4    merkle  merkle_optimized  merkle_optimized             keccak                 16            512                                       8621.333333      0.002865           0.003186
+     8    merkle            merkle            merkle             keccak                 16            512                                      19056.000000      0.003058           0.003447
+     8    merkle  merkle_optimized  merkle_optimized             keccak                 16            512                                       8515.000000      0.003027           0.003508
+    16    merkle            merkle            merkle             keccak                 16            512                                      19487.250000      0.002656           0.002403
+    16    merkle  merkle_optimized  merkle_optimized             keccak                 16            512                                       9101.666667      0.002425           0.003073
+    16    verkle            verkle            verkle verkle_kzg                         16            512 80cdd715-f31a-42a0-8c6a-ce3407578323  3072.000000      0.036110           5.697929
+    16    verkle verkle_multiproof verkle_multiproof verkle_kzg                         16            512 80cdd715-f31a-42a0-8c6a-ce3407578323  3072.000000      0.036764           6.105910
+    32    verkle            verkle            verkle verkle_kzg                         16            512 80cdd715-f31a-42a0-8c6a-ce3407578323  2736.000000      0.055206           5.900144
+    32    verkle verkle_multiproof verkle_multiproof verkle_kzg                         16            512 80cdd715-f31a-42a0-8c6a-ce3407578323  2400.000000      0.051632           6.180912
+    64    verkle            verkle            verkle verkle_kzg                         16            512 4d302c34-7ea7-4115-bc5f-44e996cdbe11  2352.000000      0.088030           5.322119
+    64    verkle verkle_multiproof verkle_multiproof verkle_kzg                         16            512 4d302c34-7ea7-4115-bc5f-44e996cdbe11  2304.000000      0.084900           5.405902
+   256    verkle            verkle            verkle verkle_kzg                         16            512 7e27cb39-2e0e-4a19-ac1a-3d2416111838  2304.000000      0.303077           5.305887
+   256    verkle verkle_multiproof verkle_multiproof verkle_kzg                         16            512 7e27cb39-2e0e-4a19-ac1a-3d2416111838  2208.000000      0.278181           5.434833

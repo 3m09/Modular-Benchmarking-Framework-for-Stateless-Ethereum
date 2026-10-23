@@ -1,0 +1,12 @@
+{
+    "TREE_TYPE": "poseidon_merkle",
+    "HASH_FN": "poseidon",
+    "PROVER_TYPE": "merkle",
+    "VERIFIER_TYPE" : "merkle",
+    "SETUP_TYPE": "",
+    "KEY_LENGTH": 32,
+    "VALUE_LENGTH": 32,
+    "WIDTH": 16,
+    "SECRET": 1927409816240961209460912649124,
+    "KEYS_TO_PROVE": ["0x0163", "0x036b", "0x012c", "0x02b1", "0x0161"]
+}
