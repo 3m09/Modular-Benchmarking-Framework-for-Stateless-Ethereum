@@ -5,7 +5,6 @@ eth-utils==2.3.2
 plyvel==1.5.1
 py-ecc==8.0.0
 pycryptodome==3.19.1
-PySNARK @ git+https://github.com/meilof/pysnark@02eb721d7327ced1328783c820b25d5e39575dbc
 rlp==3.0.0
 toolz==0.12.0
 typing_extensions==4.15.0

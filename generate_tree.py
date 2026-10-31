@@ -5,6 +5,7 @@ from datetime import datetime
 from pathlib import Path
 import uuid
 from get_eth_data import fetch_trie_kv_pairs
+from verkle.eip6800 import account_to_leaves
 
 def generate_tree(method, width, db_path, hash_fn=None, setup=None):
     tree_class = TREE_REGISTRY[method]
@@ -19,7 +20,7 @@ def generate_setup(method, secret, width=None):
     return setup
 
 def get_root_data(method, root):
-    if method == 'verkle':
+    if method in ('verkle', 'verkle_eip6800'):
         return root.commitment_to_children
     return root.value
 
@@ -68,8 +69,8 @@ def test():
         f.write(tree_id + "\n")
 
     # data = fetch_trie_kv_pairs(NUM_KEYS, output_file=tree_data_path)
-    data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
-    # data_file_path = "data.json"
+    # data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
+    data_file_path = "data.json"
     with open(data_file_path) as f:
         data = json.load(f)
     
@@ -114,6 +115,24 @@ def test():
 
     # tree_data_path = f"{db_path}/data.json"
     # data_to_store = {}
+
+    if TREE_TYPE == "verkle_eip6800":
+        # EIP-6800 layout: one stem per account, BASIC_DATA and CODE_HASH leaves.
+        # The inserted keys/values are stored per tree for prove_verify.py.
+        data_to_store = {}
+        for idx, (k, v) in enumerate(data.items()):
+            if idx % 100 == 0:
+                print(f" Inserting account of index: {idx}")
+            stem, leaves = account_to_leaves(hex_to_bytes(k, KEY_LENGTH), hex_to_bytes(v, 0))
+            data_tree.insert_stem(stem, leaves)
+            for suffix, value in leaves.items():
+                data_to_store["0x" + (stem + bytes([suffix])).hex()] = "0x" + value.hex()
+
+        with open(Path(db_path) / "data.json", "w") as f:
+            json.dump(data_to_store, f, indent=2)
+
+        print("Inserted data into tree")
+        return
 
     for idx, (k, v) in enumerate(data.items()):
         if idx % 100 == 0:

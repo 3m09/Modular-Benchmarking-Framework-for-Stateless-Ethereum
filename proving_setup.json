@@ -1,11 +1,11 @@
 {
-    "TREE_TYPE": "merkle",
-    "HASH_FN": "keccak",
-    "TREE_ID": "3dc4aab5-f709-4802-b771-7a0061f73861",
-    "PROVER_TYPE": "zkstarkmerkle",
-    "VERIFIER_TYPE": "zkstarkmerkle",
-    "SETUP_TYPE": "",
-    "WIDTH": 8,
+    "TREE_TYPE": "verkle_eip6800",
+    "HASH_FN": "",
+    "TREE_ID": "bb662c95-5492-401d-b3c3-6f7ef617ba14",
+    "PROVER_TYPE": "verkle_eip6800",
+    "VERIFIER_TYPE": "verkle_eip6800",
+    "SETUP_TYPE": "verkle_kzg",
+    "WIDTH": 256,
     "SECRET": 1927409816240961209460912649124,
-    "NUM_KEYS_TO_PROVE": 256
+    "NUM_KEYS_TO_PROVE": 16
 }

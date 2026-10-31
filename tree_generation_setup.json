@@ -1,9 +1,9 @@
 {
-    "TREE_TYPE": "merkle",
-    "HASH_FN": "keccak",
-    "SETUP_TYPE": "",
+    "TREE_TYPE": "verkle_eip6800",
+    "HASH_FN": "",
+    "SETUP_TYPE": "verkle_kzg",
     "KEY_LENGTH": 32,
-    "WIDTH": 4,
+    "WIDTH": 256,
     "SECRET": 1927409816240961209460912649124,
-    "NUM_KEYS": 2048
+    "NUM_KEYS": 512
 }

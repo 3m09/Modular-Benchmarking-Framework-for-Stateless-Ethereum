@@ -34,7 +34,7 @@ def generate_setup(method, secret, width=None):
     return setup
 
 def get_root_data(method, root):
-    if method == 'verkle':
+    if method in ('verkle', 'verkle_eip6800'):
         return root.commitment_to_children
     return root.value
 
@@ -82,12 +82,17 @@ def test():
     #     with open(data_path) as f:
     #         data = json.load(f)
     # else:
-    data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
-    # data_file_path = "data.json"
-    with open(data_file_path) as f:
-        data = json.load(f)
-    
-    data = dict(list(data.items())[:NUM_KEYS_TREE])
+    # data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
+    if TREE_TYPE == "verkle_eip6800":
+        # Leaf keys/values written by generate_tree.py (2 leaves per account)
+        with open(f"{db_path}/data.json") as f:
+            data = json.load(f)
+    else:
+        data_file_path = "data.json"
+        with open(data_file_path) as f:
+            data = json.load(f)
+
+        data = dict(list(data.items())[:NUM_KEYS_TREE])
 
     print("Loaded tree data")
 
