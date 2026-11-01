@@ -1,0 +1,11 @@
+[package]
+name = "mpt_zkstark_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { workspace = true }
+tiny-keccak = { workspace = true }
+
+[dev-dependencies]
+hex = "0.4"

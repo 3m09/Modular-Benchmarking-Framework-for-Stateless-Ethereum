@@ -1,0 +1,12 @@
+[package]
+name = "mpt_zkstark_guest"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mpt_zkstark_core = { path = "../../core" }
+risc0-zkvm = { workspace = true, default-features = false, features = ["std"] }
+
+[[bin]]
+name = "mpt_membership"
+path = "src/main.rs"

@@ -157,9 +157,14 @@ def test():
                     
                     a = time.time()
 
-                    root_data = get_root_data(TREE_TYPE, data_tree.root)
-                    
-                    assert verify_proof(VERIFIER_TYPE, (commitments, w), root_data, key_bytes, [hex_to_bytes(data[k]) for k in keys_to_prove], setup_object)
+                    root_data = data_tree.root_hash() if VERIFIER_TYPE == "zkstarkmerkle" else get_root_data(TREE_TYPE, data_tree.root)
+                    expected_values = (
+                        [bytes.fromhex(data[k][2:] if data[k].startswith("0x") else data[k]) for k in keys_to_prove]
+                        if VERIFIER_TYPE == "zkstarkmerkle"
+                        else [hex_to_bytes(data[k]) for k in keys_to_prove]
+                    )
+
+                    assert verify_proof(VERIFIER_TYPE, (commitments, w), root_data, key_bytes, expected_values, setup_object)
 
                     verification_time = time.time() - a
                     print("Verified proof in %.3f seconds" % (verification_time))
