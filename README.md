@@ -73,10 +73,35 @@ Thesis codebase comparing witness/proof schemes for stateless Ethereum clients:
 
 | Tree | Hash / commitment | Provers / verifiers |
 |------|-------------------|---------------------|
-| Merkle Patricia Trie (`merkle`) | keccak or poseidon | `merkle`, `merkle_optimized`, `zkstarkmerkle`, `zksnarkmerkle` |
-| Verkle tree (`verkle`) | KZG over BLS12-381 (`verkle_kzg` setup) | `verkle`, `verkle_optimized`, `verkle_multiproof`, `verkle_multiproof_optimized` |
+| Merkle Patricia Trie (`merkle`), width 2/4/16/256 | keccak | `merkle`, `merkle_optimized`, `zkstarkmerkle` (width 16 only) |
+| Merkle Patricia Trie (`merkle`), width 16 | poseidon | `zksnarkmerkle` |
+| EIP-6800 Verkle tree (`verkle_eip6800`), width 16-256 | KZG over BLS12-381 (`verkle_kzg` setup) | `verkle_eip6800` |
 
-Every run measures proof size, proving time and verification time and appends one row to `results_latest.csv`.
+All backends read the same mainnet accounts from `data.json`.
+Every run measures proof size, proving time and verification time.
+The paper's results come from `benchmark.py` (see "Paper experiments" below), which writes
+`results/paper_results.csv`. `results_latest.csv` holds the older single-run thesis results and is kept only for reference.
+
+### Changes for the paper (Nov 2026)
+
+* **MPT width is real.** `tree/merkle_tree.py` now uses `WIDTH` for the key digits
+  (log2(W) bits) and for the branch arity. Earlier, every "width" built the same hexary trie.
+  Non-hex paths use a bit-packed encoding. The verifiers take the arity from the proof and check it.
+* **zk-SNARK redesigned.** `zkSNARK/zk_encoder_decoder.py` now uses a field-native node
+  encoding: every 32-byte word is < p, and a leaf commits to its full key. The new
+  `circuit_directory/mpt_batch_16.circom` binds root, key and value as public inputs, and
+  constrains the node type tags, batch counts and the nibble range. The verifier rebuilds the public
+  inputs from its own (root, keys, values) and checks the proof in a persistent snarkjs process.
+  264,432 constraints; the setup uses `powersOfTau28_hez_final_19.ptau`.
+  The old circuit did not bind the key, and it bound the value only modulo p.
+* **Old random-data Verkle removed.** `verkle_eip6800` on mainnet data is the only Verkle backend.
+* `scripts/soundness_checks.py`: negative tests (tampered value, key and root must be rejected) for every backend.
+* `benchmark.py` interleaves repetitions across batch sizes (rep-major), warms caches with an untimed
+  proof (16 accounts; 1 for the ZK backends), and samples the same accounts for every scheme.
+* `zkstarkmerkle` proof size counts the binary receipt (4 bytes per u32 word of seals and claim digests,
+  journal excluded). The JSON transport encoding is about 2.6x larger. On mainnet paths (8,192-account trie)
+  one receipt takes about 5.5 min and 8.5 GB RAM on a 4-core laptop, so the paper grid for the STARK is
+  batches 1-8 and tree sizes 256-8192 at batch 1.
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full pipeline.
 
 ## Repository layout
@@ -91,7 +116,8 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full pipeline.
 ├── test_scheme.py                  # in-memory sanity check, configured by global_setup.json
 ├── get_eth_data.py                 # fetch real account proofs from mainnet (Infura)
 │
-├── *.json (root)                   # run configs + datasets (data.json, random_data.json)
+├── benchmark.py                    # paper experiments: repetitions, paired samples -> results/paper_results.csv
+├── *.json (root)                   # run configs + dataset (data.json: 8223 mainnet accounts)
 ├── results_latest.csv              # all benchmark results
 ├── tree_ids.txt                    # ids of generated trees (tree_storage/<id>)
 │
@@ -153,12 +179,13 @@ Rebuild them with:
 ```bash
 # circuit -> witness generator
 (cd circuit_directory && npm install)                   # circomlib
-circom circuit_directory/mpt_batch_16.circom --r1cs --c --sym -o circuit_directory
-make -C circuit_directory/mpt_batch_16_cpp
+circom circuit_directory/mpt_batch_16.circom --O2 --r1cs --c --sym -o circuit_directory/build16
+make -C circuit_directory/build16/mpt_batch_16_cpp
+cp -r circuit_directory/build16/mpt_batch_16_cpp circuit_directory/mpt_batch_16_cpp
 
-# trusted setup: pick a Hermez powers-of-tau file with 2^N >= the constraint count
-snarkjs r1cs info circuit_directory/mpt_batch_16.r1cs
-snarkjs groth16 setup circuit_directory/mpt_batch_16.r1cs powersOfTau28_hez_final_<N>.ptau mpt_batch_16.zkey
+# trusted setup: 264,432 constraints -> Hermez powers-of-tau with 2^19
+snarkjs groth16 setup circuit_directory/build16/mpt_batch_16.r1cs powersOfTau28_hez_final_19.ptau mpt_batch_16_0000.zkey
+snarkjs zkey contribute mpt_batch_16_0000.zkey mpt_batch_16.zkey --name="phase2" -e="<random>"
 snarkjs zkey export verificationkey mpt_batch_16.zkey verification_key_batch_16.json
 
 # rapidsnark: clone iden3/rapidsnark (thesis used commit 81eddf1) into ./rapidsnark
@@ -176,7 +203,7 @@ Edit `tree_generation_setup.json` (`TREE_TYPE`, `HASH_FN`, `SETUP_TYPE`, `WIDTH`
 python generate_tree.py
 ```
 The tree is stored in `tree_storage/<uuid>/` (LevelDB + `tree_info.json`) and the id is appended to `tree_ids.txt`.
-Merkle trees read keys from `data.json`; verkle trees from `random_data.json`.
+All trees read accounts from `data.json` (`verkle_eip6800` stores two EIP-6800 leaves per account).
 
 ### Prove + verify once
 
@@ -186,7 +213,16 @@ Edit `proving_setup.json` (`TREE_ID`, `PROVER_TYPE`, `VERIFIER_TYPE`, `NUM_KEYS_
 python prove_verify.py
 ```
 
-### Sweeps
+### Paper experiments
+
+```bash
+python benchmark.py experiments/paper_config.json        # resumable; skips rows already verified
+python benchmark.py experiments/paper_config.json --only batch
+python experiments/paper_plots.py                        # figures + summary table -> results/figures/
+python scripts/soundness_checks.py                       # negative tests -> results/soundness_checks.json
+```
+
+### Legacy sweeps (thesis)
 
 ```bash
 # num_keys sweep; rewrites proving_setup.json per run

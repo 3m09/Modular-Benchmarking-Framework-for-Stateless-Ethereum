@@ -82,7 +82,6 @@ def test():
     #     with open(data_path) as f:
     #         data = json.load(f)
     # else:
-    # data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
     if TREE_TYPE == "verkle_eip6800":
         # Leaf keys/values written by generate_tree.py (2 leaves per account)
         with open(f"{db_path}/data.json") as f:

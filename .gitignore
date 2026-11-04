@@ -58,3 +58,6 @@ logs/
 .DS_Store
 .idea/
 .vscode/
+
+# Local circuit builds (r1cs/sym/witness generator are reproducible)
+circuit_directory/build*/

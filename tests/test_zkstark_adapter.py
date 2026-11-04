@@ -28,10 +28,12 @@ class AdapterTests(unittest.TestCase):
             def get(inner, key):
                 return self.value
 
-        with patch.object(bridge, "_call", return_value={"proof": "010203"}) as host:
+        receipt = b'{"inner": {"seal": [1, 2, 3]}, "journal": {"bytes": [7, 8]}}'
+        with patch.object(bridge, "_call", return_value={"proof": receipt.hex()}) as host:
             receipts, root = MPTSTARKProver().generate_proof(Tree(), [self.key])
-        self.assertEqual((receipts, root), ([b"\x01\x02\x03"], self.root))
-        self.assertEqual(MPTSTARKProver().proof_size(receipts, root), 3)
+        self.assertEqual((receipts, root), ([receipt], self.root))
+        # 3 seal words x 4 bytes; the journal (the public statement) is not counted
+        self.assertEqual(MPTSTARKProver().proof_size(receipts, root), 12)
         sent = host.call_args.args[0]
         self.assertEqual(sent["nodes"], [self.node.hex()])
         self.assertEqual(sent["root"], self.root.hex())

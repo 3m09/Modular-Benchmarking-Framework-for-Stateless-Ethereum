@@ -1,8 +1,23 @@
 """Private-witness MPT membership ZK-STARK prover (RISC Zero composite receipt)."""
 
+import json
+
 from registry.provers import BaseProver, register_prover
 from merkle.node import Node
 from zkstark_risc0 import bridge
+
+
+def _binary_size(obj, key=None):
+    """4 bytes per u32 word in a decoded RISC Zero receipt, skipping the journal."""
+    if key == "journal":
+        return 0
+    if isinstance(obj, dict):
+        return sum(_binary_size(v, k) for k, v in obj.items())
+    if isinstance(obj, list):
+        if obj and all(isinstance(x, int) for x in obj):
+            return 4 * len(obj)
+        return sum(_binary_size(x) for x in obj)
+    return 0
 
 
 @register_prover("zkstarkmerkle")
@@ -30,9 +45,15 @@ class MPTSTARKProver(BaseProver):
         return receipts, root
 
     def proof_size(self, commitments, witness):
+        """
+        Binary size of the receipts. The host transports receipts as JSON (about
+        2.6x larger); here every u32 word (segment seals, claim digests,
+        verifier parameters) counts 4 bytes. The journal is excluded: it is the
+        statement (root, key, value) that the verifier already holds.
+        """
         if not isinstance(commitments, list) or any(not isinstance(p, bytes) for p in commitments):
             raise ValueError("expected serialized ZK-STARK receipts")
-        return sum(len(receipt) for receipt in commitments)
+        return sum(_binary_size(json.loads(receipt)) for receipt in commitments)
 
     def get_setup_params(self):
         return {"backend": "RISC Zero 3.0.6", "receipt_kind": "composite", "guest": "mpt_membership"}

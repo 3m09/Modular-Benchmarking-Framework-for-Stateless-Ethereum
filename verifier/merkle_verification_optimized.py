@@ -63,7 +63,14 @@ class MerkleProofVerifier(BaseVerifier):
             return False
         
         # Convert key to nibble path for traversal
-        path = NibblePath(key)
+        # The radix is not configured on the verifier side; it is fixed by the
+        # first node (branch arity or path digit width) and checked at every branch.
+        try:
+            first = Node.decode(proof_nodes[0])
+        except Exception:
+            return False
+        width = len(first.branches) if isinstance(first, Node.Branch) else first.path._width
+        path = NibblePath(key, width=width)
         
         # First node should hash to root_hash
         first_node_encoded = proof_nodes[0]
@@ -120,6 +127,9 @@ class MerkleProofVerifier(BaseVerifier):
                         print(f"  Branch value mismatch (empty path)")
                         return False
                 
+                if len(node.branches) != width:
+                    print(f"  Branch arity mismatch at node {i}")
+                    return False
                 idx = path.at(0)
                 branch_ref = node.branches[idx]
                 
