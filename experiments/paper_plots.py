@@ -3,9 +3,10 @@ Every figure and table of the paper from results/paper_results.csv.
 
     python experiments/paper_plots.py [results/paper_results.csv] [--out results/figures]
 
-Only verified rows are used; points are the mean over repetitions, error bars
-one standard deviation. Also writes summary.csv (all means/sds) and
-summary_table.tex.
+Only verified rows are used; points are the median over repetitions, error
+bars the interquartile range (sub-millisecond timings are sensitive to single
+cold-cache repetitions, which would dominate a mean). Also writes summary.csv
+(medians, quartiles, means and sds) and summary_table.tex.
 """
 import argparse
 from pathlib import Path
@@ -48,7 +49,9 @@ def load(path):
     keys = ["experiment", "tree_type", "hash_fn", "width", "num_keys_tree", "prover", "num_keys_prove"]
     agg = df.groupby(keys, dropna=False).agg(
         reps=("rep", "count"),
-        **{f"{m}_{s}": (m, s) for m, _ in METRICS for s in ("mean", "std")},
+        **{f"{m}_{s}": (m, s) for m, _ in METRICS for s in ("median", "mean", "std")},
+        **{f"{m}_q1": (m, lambda v: v.quantile(0.25)) for m, _ in METRICS},
+        **{f"{m}_q3": (m, lambda v: v.quantile(0.75)) for m, _ in METRICS},
     ).reset_index()
     return agg
 
@@ -63,7 +66,12 @@ def shared_legend(fig, ax):
 
 def errline(ax, sub, x, metric, label=None, **style):
     sub = sub.sort_values(x)
-    ax.errorbar(sub[x], sub[f"{metric}_mean"], yerr=sub[f"{metric}_std"].fillna(0), label=label, **style)
+    ax.errorbar(sub[x], sub[f"{metric}_median"], yerr=iqr(sub, metric), label=label, **style)
+
+
+def iqr(sub, metric):
+    med = sub[f"{metric}_median"]
+    return [(med - sub[f"{metric}_q1"]).clip(lower=0).values, (sub[f"{metric}_q3"] - med).clip(lower=0).values]
 
 
 def fig_batch(agg, out):
@@ -149,12 +157,15 @@ def fig_pareto(agg, out, batch=64):
             sub = d[d.prover == prover]
             if not len(sub):
                 continue
-            x, y = sub.proof_size_mean.iloc[0], sub[f"{ymetric}_mean"].iloc[0]
-            ax.errorbar([x], [y], xerr=[sub.proof_size_std.fillna(0).iloc[0]],
-                        yerr=[sub[f"{ymetric}_std"].fillna(0).iloc[0]], linestyle="none",
+            x, y = sub.proof_size_median.iloc[0], sub[f"{ymetric}_median"].iloc[0]
+            ax.errorbar([x], [y], xerr=iqr(sub, "proof_size"),
+                        yerr=iqr(sub, ymetric), linestyle="none",
                         markersize=5.5, label=label, markeredgecolor="#fcfcfb", markeredgewidth=0.8,
                         **STYLE[prover])
-            ax.annotate(label, (x, y), xytext=(4, 3), textcoords="offset points", fontsize=5.8, color="#52514e")
+            # Plain MPT sits right of its deduplicated variant: label it below.
+            offset, ha = {"merkle": ((4, -9), "left"), "zkstarkmerkle": ((-5, 3), "right")}.get(prover, ((5, 3), "left"))
+            ax.annotate(label, (x, y), xytext=offset, textcoords="offset points", fontsize=5.8,
+                        color="#52514e", ha=ha)
             pts.append((x, y))
         front = sorted((pts[i] for i in pareto(pts)), key=lambda p: p[0])
         ax.plot([p[0] for p in front], [p[1] for p in front], linestyle="--", color="#8a8984",
@@ -164,7 +175,9 @@ def fig_pareto(agg, out, batch=64):
         ax.set_xlabel(f"Proof size for {batch} accounts (bytes)")
         ax.set_ylabel(ylabel)
         ax.margins(x=0.25, y=0.25)
-    axes[0].legend(loc="lower left", frameon=False)
+    # Points are labelled directly; the legend only explains the frontier line.
+    frontier = [h for h in axes[0].get_lines() if h.get_label() == "Pareto frontier"]
+    axes[0].legend(handles=frontier, loc="upper right", frameon=False)
     fig.tight_layout(w_pad=1.5)
     fig.savefig(out / f"fig_pareto_{batch}.pdf")
     plt.close(fig)
@@ -196,7 +209,7 @@ def summary_table(agg, out, batches=(1, 8, 128)):
                 if not len(sub):
                     cells.append("--")
                     continue
-                v = sub[f"{metric}_mean"].iloc[0]
+                v = sub[f"{metric}_median"].iloc[0]
                 cells.append(fmt_size(v) if metric == "proof_size" else fmt_time(v))
             head = rf"\multirow{{{len(present)}}}{{*}}{{{name}}}" if i == 0 else ""
             lines.append(f"{head} & {label} & " + " & ".join(cells) + r" \\")

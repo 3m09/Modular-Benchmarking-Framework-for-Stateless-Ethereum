@@ -9,7 +9,8 @@ data.json, then for every prover, batch size and repetition:
 
   * samples `batch` accounts with a seeded RNG; the sample depends only on
     (seed, tree size, batch, repetition), so every scheme proves the same accounts;
-  * times proof generation and verification with time.perf_counter;
+  * times proof generation and verification with time.perf_counter (calls
+    under 50 ms are repeated ten times and the median is recorded);
   * appends one row to the output CSV, including whether the proof verified.
 
 An account is one MPT key (keccak(address) -> RLP account). For the EIP-6800
@@ -22,6 +23,7 @@ import gc
 import json
 import os
 import random
+import statistics
 import subprocess
 import time
 import traceback
@@ -144,21 +146,41 @@ def run_one(handle, prover_name, batch, rep, seed):
         from verifier.snark_merkle_verification import warm_up
         warm_up()
 
-    gc.collect()
-    start = time.perf_counter()
-    proof = prover.generate_proof(handle.tree, keys)
-    proving_time = time.perf_counter() - start
+    proof, proving_time = timed(lambda: prover.generate_proof(handle.tree, keys))
     proof_size = prover.proof_size(*proof)
 
     root = handle.root(prover_name)
+
+    def verify():
+        try:
+            return bool(verifier.verify_proof(values, keys, root, proof))
+        except AssertionError:
+            return False
+    verified, verification_time = timed(verify)
+    return len(keys), proof_size, proving_time, verification_time, verified
+
+
+INNER_THRESHOLD = 0.05   # seconds
+INNER_REPS = 9
+
+
+def timed(fn):
+    """Run fn once and time it. Calls shorter than INNER_THRESHOLD are repeated
+    INNER_REPS more times and the median is returned: single sub-millisecond
+    measurements are dominated by scheduler and cache jitter."""
     gc.collect()
     start = time.perf_counter()
-    try:
-        verified = bool(verifier.verify_proof(values, keys, root, proof))
-    except AssertionError:
-        verified = False
-    verification_time = time.perf_counter() - start
-    return len(keys), proof_size, proving_time, verification_time, verified
+    result = fn()
+    elapsed = time.perf_counter() - start
+    if elapsed < INNER_THRESHOLD:
+        samples = [elapsed]
+        for _ in range(INNER_REPS):
+            gc.collect()
+            start = time.perf_counter()
+            fn()
+            samples.append(time.perf_counter() - start)
+        elapsed = statistics.median(samples)
+    return result, elapsed
 
 
 def main():
