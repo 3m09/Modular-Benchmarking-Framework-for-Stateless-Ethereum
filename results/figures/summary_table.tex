@@ -1,0 +1,23 @@
+\begin{tabular}{llrrr}
+\toprule
+Metric & Scheme & $k=1$ & $k=8$ & $k=128$ \\
+\midrule
+\multirow{5}{*}{Proof size} & MPT & 1,792\,B & 14.0\,kB & 224.6\,kB \\
+ & MPT (dedup.) & 1,806\,B & 9,503\,B & 85.8\,kB \\
+ & Verkle (KZG) & 192\,B & 1,248\,B & 17.7\,kB \\
+ & zk-SNARK (Groth16) & 256\,B & 256\,B & 2,048\,B \\
+ & zk-STARK (RISC Zero) & 281.3\,kB & 2,250.6\,kB & -- \\
+\midrule
+\multirow{5}{*}{Proving} & MPT & 166\,$\mu$s & 796\,$\mu$s & 9.5\,ms \\
+ & MPT (dedup.) & 169\,$\mu$s & 853\,$\mu$s & 9.8\,ms \\
+ & Verkle (KZG) & 241.5\,ms & 271.6\,ms & 787.8\,ms \\
+ & zk-SNARK (Groth16) & 3.49\,s & 3.55\,s & 29.13\,s \\
+ & zk-STARK (RISC Zero) & 307\,s & 2504\,s & -- \\
+\midrule
+\multirow{5}{*}{Verification} & MPT & 255\,$\mu$s & 1.2\,ms & 14.5\,ms \\
+ & MPT (dedup.) & 256\,$\mu$s & 1.1\,ms & 14.1\,ms \\
+ & Verkle (KZG) & 565.0\,ms & 1.97\,s & 19.02\,s \\
+ & zk-SNARK (Groth16) & 11.3\,ms & 11.5\,ms & 117.5\,ms \\
+ & zk-STARK (RISC Zero) & 33.4\,ms & 264.0\,ms & -- \\
+\bottomrule
+\end{tabular}

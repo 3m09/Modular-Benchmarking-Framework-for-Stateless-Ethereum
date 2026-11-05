@@ -1,0 +1,38 @@
+{
+  "merkle": {
+    "honest": true,
+    "tampered_value_rejected": true,
+    "swapped_key_rejected": true,
+    "tampered_root_rejected": true
+  },
+  "merkle_w2": {
+    "honest": true,
+    "tampered_value_rejected": true,
+    "swapped_key_rejected": true,
+    "tampered_root_rejected": true
+  },
+  "merkle_optimized": {
+    "honest": true,
+    "tampered_value_rejected": true,
+    "swapped_key_rejected": true,
+    "tampered_root_rejected": true
+  },
+  "verkle_eip6800": {
+    "honest": true,
+    "tampered_value_rejected": true,
+    "swapped_key_rejected": true,
+    "tampered_root_rejected": true
+  },
+  "zksnarkmerkle": {
+    "honest": true,
+    "tampered_value_rejected": true,
+    "swapped_key_rejected": true,
+    "tampered_root_rejected": true
+  },
+  "zkstarkmerkle": {
+    "honest": true,
+    "tampered_value_rejected": true,
+    "swapped_key_rejected": true,
+    "tampered_root_rejected": true
+  }
+}
