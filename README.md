@@ -75,7 +75,7 @@ Thesis codebase comparing witness/proof schemes for stateless Ethereum clients:
 |------|-------------------|---------------------|
 | Merkle Patricia Trie (`merkle`), width 2/4/16/256 | keccak | `merkle`, `merkle_optimized`, `zkstarkmerkle` (width 16 only) |
 | Merkle Patricia Trie (`merkle`), width 16 | poseidon | `zksnarkmerkle` |
-| EIP-6800 Verkle tree (`verkle_eip6800`), width 16-256 | KZG over BLS12-381 (`verkle_kzg` setup) | `verkle_eip6800` |
+| EIP-6800 Verkle tree (`verkle_eip6800`), width 16-256 | KZG over BLS12-381 (`verkle_kzg` setup) | `verkle_eip6800` (native blst arithmetic), `verkle_eip6800_pyecc` (pure-Python py_ecc reference) |
 
 All backends read the same mainnet accounts from `data.json`.
 Every run measures proof size, proving time and verification time.
@@ -95,6 +95,11 @@ The paper's results come from `benchmark.py` (see "Paper experiments" below), wh
   264,432 constraints; the setup uses `powersOfTau28_hez_final_19.ptau`.
   The old circuit did not bind the key, and it bound the value only modulo p.
 * **Old random-data Verkle removed.** `verkle_eip6800` on mainnet data is the only Verkle backend.
+* **Native Verkle arithmetic.** `verkle_eip6800` performs the multi-scalar multiplication, the
+  verifier's scalar multiplications and the pairings in blst (`pyblst`, `verkle/native_bls.py`).
+  The openings, the Fiat-Shamir transcript and the proof are unchanged: both provers produce
+  byte-identical witnesses. The verifier deserializes every received point with a subgroup check.
+  `verkle_eip6800_pyecc` keeps the pure-Python py_ecc implementation as a reference.
 * `scripts/soundness_checks.py`: negative tests (tampered value, key and root must be rejected) for every backend.
 * `benchmark.py` interleaves repetitions across batch sizes (rep-major), warms caches with an untimed
   proof (16 accounts; 1 for the ZK backends), and samples the same accounts for every scheme.

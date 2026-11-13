@@ -40,7 +40,8 @@
                 8192
             ],
             "provers": [
-                "verkle_eip6800"
+                "verkle_eip6800",
+                "verkle_eip6800_pyecc"
             ],
             "batch_sizes": [
                 1,
@@ -118,7 +119,8 @@
                 8192
             ],
             "provers": [
-                "verkle_eip6800"
+                "verkle_eip6800",
+                "verkle_eip6800_pyecc"
             ],
             "batch_sizes": [
                 16
@@ -183,7 +185,8 @@
                 8192
             ],
             "provers": [
-                "verkle_eip6800"
+                "verkle_eip6800",
+                "verkle_eip6800_pyecc"
             ],
             "batch_sizes": [
                 1,

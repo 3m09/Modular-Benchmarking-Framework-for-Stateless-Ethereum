@@ -13,7 +13,7 @@ from verkle.eip6800 import (
 from py_ecc import optimized_bls12_381 as b
 
 
-@register_prover("verkle_eip6800")
+@register_prover("verkle_eip6800_pyecc")
 class VerkleProofGeneratorEIP6800(BaseProver):
     """
     Batched KZG multiproof over every opening on the paths of `keys`:

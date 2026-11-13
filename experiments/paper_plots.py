@@ -23,6 +23,8 @@ SCHEMES = [  # prover, label, colour (categorical slots 1-5), marker
     ("zksnarkmerkle", "zk-SNARK (Groth16)", "#eda100", "D"),
     ("zkstarkmerkle", "zk-STARK (RISC Zero)", "#e87ba4", "v"),
 ]
+REFERENCE = ("verkle_eip6800_pyecc", "Verkle (py_ecc ref.)")
+REFERENCE_STYLE = dict(color="#1baf7a", marker="^", linestyle="--", alpha=0.45, markerfacecolor="none")
 LABEL = {p: l for p, l, _, _ in SCHEMES}
 STYLE = {p: dict(color=c, marker=m) for p, _, c, m in SCHEMES}
 SEQ = ["#a9c9f0", "#5c9ae6", "#2a78d6", "#174f94"]   # blue ramp, light -> dark (ordinal series)
@@ -82,12 +84,17 @@ def fig_batch(agg, out):
             sub = d[d.prover == prover]
             if len(sub):
                 errline(ax, sub, "num_keys_prove", metric, label=label, **STYLE[prover])
+        # Reference: the same Verkle protocol with pure-Python py_ecc arithmetic
+        # (identical proofs, so only the time panels show it).
+        ref = d[d.prover == REFERENCE[0]]
+        if len(ref) and metric != "proof_size":
+            errline(ax, ref, "num_keys_prove", metric, label=REFERENCE[1], **REFERENCE_STYLE)
         ax.set_xscale("log", base=2)
         ax.set_yscale("log")
         ax.set_xlabel("Accounts proven per batch")
         ax.set_ylabel(ylabel)
         ax.set_xticks([1, 4, 16, 64, 256], ["1", "4", "16", "64", "256"])
-    shared_legend(fig, axes[0])
+    shared_legend(fig, axes[1])     # the time panels also hold the reference line
     fig.savefig(out / "fig_batch.pdf")
     plt.close(fig)
 
@@ -163,7 +170,9 @@ def fig_pareto(agg, out, batch=64):
                         markersize=5.5, label=label, markeredgecolor="#fcfcfb", markeredgewidth=0.8,
                         **STYLE[prover])
             # Plain MPT sits right of its deduplicated variant: label it below.
-            offset, ha = {"merkle": ((4, -9), "left"), "zkstarkmerkle": ((-5, 3), "right")}.get(prover, ((5, 3), "left"))
+            offset, ha = {"merkle": ((4, -9), "left"), "zkstarkmerkle": ((-5, 3), "right"),
+                          "zksnarkmerkle": ((0, 7) if ymetric == "proving_time" else (0, -12), "center")
+                          }.get(prover, ((5, 3), "left"))
             ax.annotate(label, (x, y), xytext=offset, textcoords="offset points", fontsize=5.8,
                         color="#52514e", ha=ha)
             pts.append((x, y))

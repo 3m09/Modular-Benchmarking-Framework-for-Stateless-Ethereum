@@ -12,7 +12,7 @@ from verkle.eip6800 import (
 from py_ecc import optimized_bls12_381 as b
 
 
-@register_verifier("verkle_eip6800")
+@register_verifier("verkle_eip6800_pyecc")
 class VerkleProofVerifierEIP6800(BaseVerifier):
     """Verifies proofs from VerkleProofGeneratorEIP6800 (see that class for the opening layout)."""
 

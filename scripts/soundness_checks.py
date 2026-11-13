@@ -26,6 +26,7 @@ SCHEMES = {
     "merkle_w2": ("merkle", "keccak", 2),
     "merkle_optimized": ("merkle", "keccak", 16),
     "verkle_eip6800": ("verkle_eip6800", "", 16),
+    "verkle_eip6800_pyecc": ("verkle_eip6800", "", 16),
     "zksnarkmerkle": ("merkle", "poseidon", 16),
     "zkstarkmerkle": ("merkle", "keccak", 16),
 }

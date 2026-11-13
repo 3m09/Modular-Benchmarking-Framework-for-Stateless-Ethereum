@@ -34,5 +34,11 @@
     "tampered_value_rejected": true,
     "swapped_key_rejected": true,
     "tampered_root_rejected": true
+  },
+  "verkle_eip6800_pyecc": {
+    "honest": true,
+    "tampered_value_rejected": true,
+    "swapped_key_rejected": true,
+    "tampered_root_rejected": true
   }
 }
