@@ -82,7 +82,6 @@ def test():
     #     with open(data_path) as f:
     #         data = json.load(f)
     # else:
-    # data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
     if TREE_TYPE == "verkle_eip6800":
         # Leaf keys/values written by generate_tree.py (2 leaves per account)
         with open(f"{db_path}/data.json") as f:
@@ -133,7 +132,7 @@ def test():
     
     a = time.time()
 
-    root_data = get_root_data(TREE_TYPE, data_tree.root)
+    root_data = data_tree.root_hash() if VERIFIER_TYPE == "zkstarkmerkle" else get_root_data(TREE_TYPE, data_tree.root)
     
     assert verify_proof(VERIFIER_TYPE, (commitments, w), root_data, key_bytes, [hex_to_bytes(data[k]) for k in keys_to_prove], setup_object)
 

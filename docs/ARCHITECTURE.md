@@ -89,11 +89,10 @@ Configuration
          │   • In-circuit Poseidon sponge: leaf → root        │
          │   • Output: WTNS + Groth16 JSON proof (RapidSnark) │
          │                                                    │
-         │  zkSTARK (FRI)                                     │
-         │   • Build 8-register MPT execution trace           │
-         │   • Low-degree extend trace columns                │
-         │   • Composition polynomial via Fiat-Shamir α       │
-         │   • FRI proof + sampled query responses            │
+         │  zkSTARK (RISC Zero composite)                     │
+         │   • Private RLP path enters Rust guest             │
+         │   • Guest checks Keccak/RLP/path/value             │
+         │   • One real receipt per key; count its bytes      │
          └────────────────────────────────────────────────────┘
                   │
                   │  (proof object, proof size in bytes)
@@ -121,13 +120,12 @@ Configuration
          │   • snarkjs: trusted setup → prove → verify        │
          │   • Pass/fail: "The proof is valid"                │
          │                                                    │
-         │  zkSTARK (FRI)                                     │
-         │   • Rebuild Fiat-Shamir transcript                 │
-         │   • Verify FRI folding layers                      │
-         │   • Check sampled query authentication paths       │
+         │  zkSTARK (RISC Zero composite)                     │
+         │   • Check receipt and compiled guest image ID      │
+         │   • Bind journal to exact root, key, value         │
          └────────────────────────────────────────────────────┘                       │
                   ▼
-    {proving_time, verification_time, proof_size} → results.csv
+    {proving_time, verification_time, proof_size} → results_latest.csv
 ```
 
 ---
@@ -141,4 +139,7 @@ Configuration
 | Verkle (standard) | Verkle (KZG) | BLS12-381 pairings | Array of individual G1 witnesses | Individual pairing checks |
 | Verkle (Multiproof)| Verkle (KZG) | BLS12-381 pairings | Single G1 witness + per-node openings | Pairing product check |
 | zkSNARK | Batched MPT (Poseidon) | Circom R1CS | C++ Witness + RapidSnark JSON Proof | snarkjs verify |
-| zkSTARK | MPT (keccak) | FRI + Fiat-Shamir | Trace commitment + FRI layers + queries | FRI + query check |
+| zkSTARK | Hexary MPT (Keccak) | RISC Zero composite ZK-STARK | One receipt per key; private RLP path | Receipt/image verification and exact public-input match |
+
+The old `zkSTARK/` Python modules are retained for reference but are not the
+active `zkstarkmerkle` backend. See the branch README for the fix and test steps.

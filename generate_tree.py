@@ -69,7 +69,6 @@ def test():
         f.write(tree_id + "\n")
 
     # data = fetch_trie_kv_pairs(NUM_KEYS, output_file=tree_data_path)
-    # data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
     data_file_path = "data.json"
     with open(data_file_path) as f:
         data = json.load(f)

@@ -2,7 +2,7 @@ from .pkg_importer import auto_import_submodules
 import verifier
 
 class BaseVerifier:
-    def verify_proof(self, values, root, proof, keys, setup=None):
+    def verify_proof(self, values, keys, root, proof):
         raise NotImplementedError
 
 VERIFIER_REGISTRY = {}

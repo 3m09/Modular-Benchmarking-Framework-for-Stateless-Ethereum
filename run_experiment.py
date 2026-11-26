@@ -97,7 +97,7 @@ def test():
                 f.write(tree_id + "\n")
 
             # data = fetch_trie_kv_pairs(NUM_KEYS, output_file=tree_data_path)
-            data_file_path = "random_data.json" if TREE_TYPE == "verkle" else "data.json"
+            data_file_path = "data.json"
             with open(data_file_path) as f:
                 data = json.load(f)
             
@@ -157,9 +157,14 @@ def test():
                     
                     a = time.time()
 
-                    root_data = get_root_data(TREE_TYPE, data_tree.root)
-                    
-                    assert verify_proof(VERIFIER_TYPE, (commitments, w), root_data, key_bytes, [hex_to_bytes(data[k]) for k in keys_to_prove], setup_object)
+                    root_data = data_tree.root_hash() if VERIFIER_TYPE == "zkstarkmerkle" else get_root_data(TREE_TYPE, data_tree.root)
+                    expected_values = (
+                        [bytes.fromhex(data[k][2:] if data[k].startswith("0x") else data[k]) for k in keys_to_prove]
+                        if VERIFIER_TYPE == "zkstarkmerkle"
+                        else [hex_to_bytes(data[k]) for k in keys_to_prove]
+                    )
+
+                    assert verify_proof(VERIFIER_TYPE, (commitments, w), root_data, key_bytes, expected_values, setup_object)
 
                     verification_time = time.time() - a
                     print("Verified proof in %.3f seconds" % (verification_time))

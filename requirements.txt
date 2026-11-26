@@ -1,9 +1,12 @@
+# Python dependencies only. The ZK-STARK Rust dependencies are pinned in
+# zkstark_risc0/Cargo.lock; see the ZK-STARK section of README.md.
 cytoolz==1.1.0
 eth-hash==0.7.1
 eth-typing==5.2.1
 eth-utils==2.3.2
 plyvel==1.5.1
 py-ecc==8.0.0
+pyblst==0.3.15
 pycryptodome==3.19.1
 rlp==3.0.0
 toolz==0.12.0

@@ -66,16 +66,24 @@ class NibblePath:
 
         # Extended encoding (non-hex widths)
         if data[0] == NibblePath._EXTENDED_MARKER:
-            if len(data) < 7:
+            if len(data) < 5:
                 raise ValueError("Invalid extended path encoding")
 
             flags = data[1]
-            width = data[2]
-            length = int.from_bytes(data[3:7], byteorder="big")
+            width = data[2] if data[2] else 256
+            length = int.from_bytes(data[3:5], byteorder="big")
 
-            digits = list(data[7:7 + length])
-            if len(digits) != length:
+            # Digits are packed most-significant first, 8 // log2(width) per byte
+            bits = int(math.log2(width))
+            per_byte = 8 // bits
+            body = data[5:]
+            if len(body) != -(-length // per_byte):
                 raise ValueError("Invalid extended path length")
+            digits = []
+            for byte in body:
+                for shift in range(8 - bits, -1, -bits):
+                    digits.append((byte >> shift) & (width - 1))
+            digits = digits[:length]
 
             is_leaf = (flags & 0x01) == 0x01
             return NibblePath(digits, offset=0, width=width), is_leaf
@@ -135,7 +143,7 @@ class NibblePath:
 
         - width=16 uses legacy hex-prefix encoding (Ethereum compatible)
         - other widths use extended encoding:
-            0xFF | flags | width | length(4 bytes) | digits...
+            0xFF | flags | width (0 = 256) | length(2 bytes) | bit-packed digits
         """
         if self._width == 16:
             # Legacy hex-prefix encoding
@@ -159,12 +167,21 @@ class NibblePath:
 
             return bytes(output)
 
-        # Extended encoding for non-hex widths
+        # Extended encoding for non-hex widths; digits are bit-packed so a
+        # path costs the same number of key bits at every width.
         flags = 0x01 if is_leaf else 0x00
         length = len(self)
-        header = bytes([self._EXTENDED_MARKER, flags, self._width]) + length.to_bytes(4, "big")
-        body = bytes([self.at(i) for i in range(length)])
-        return header + body
+        bits = self._bits_per_digit
+        per_byte = 8 // bits
+        header = bytes([self._EXTENDED_MARKER, flags, self._width % 256]) + length.to_bytes(2, "big")
+        body = bytearray()
+        for start in range(0, length, per_byte):
+            byte = 0
+            for j in range(per_byte):
+                digit = self.at(start + j) if start + j < length else 0
+                byte = (byte << bits) | digit
+            body.append(byte)
+        return header + bytes(body)
 
     class _Chained:
         """ Class that chains two paths. """

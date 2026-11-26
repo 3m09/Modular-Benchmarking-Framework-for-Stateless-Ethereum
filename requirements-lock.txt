@@ -1,4 +1,5 @@
 # Exact package versions of the environment the thesis experiments ran in (Python 3.11).
+# ZK-STARK adds no Python packages; its Rust crates are in zkstark_risc0/Cargo.lock.
 aiohappyeyeballs==2.6.2
 aiohttp==3.14.0
 aiosignal==1.4.0

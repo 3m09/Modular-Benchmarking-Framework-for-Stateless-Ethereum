@@ -1,0 +1,8 @@
+[workspace]
+members = ["core", "methods", "methods/guest", "host"]
+resolver = "2"
+
+[workspace.dependencies]
+risc0-zkvm = { version = "=3.0.6", default-features = false }
+serde = { version = "1", features = ["derive"] }
+tiny-keccak = { version = "2", features = ["keccak"] }
